@@ -7,5 +7,14 @@
             "name": "ozycast",
             "email": "ozy@nxt.ru"
         }
-    ]
+    ],
+    "require": {
+      "illuminate/support": "^7.0",
+      "illuminate/routing": "7.14",
+      "illuminate/http": "7.14",
+      "guzzlehttp/guzzle": "^7.2",
+      "ext-json": "*",
+      "illuminate/validation": "7.14",
+      "laravel-zero/foundation": "7.14.1"
+    }
 }
