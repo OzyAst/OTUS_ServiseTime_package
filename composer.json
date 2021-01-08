@@ -1,30 +1,32 @@
 {
-    "name": "ozycast/service-time-calendar",
-    "license": "MIT",
-    "description": "Calendar with timetable for site ServiceTime",
-    "authors": [
-        {
-            "name": "ozycast",
-            "email": "ozy@nxt.ru"
-        }
-    ],
-    "require": {
-      "illuminate/support": "^7.0",
-      "illuminate/routing": "7.14",
-      "illuminate/http": "7.14",
-      "guzzlehttp/guzzle": "^7.2",
-      "ext-json": "*",
-      "illuminate/validation": "7.14",
-      "laravel-zero/foundation": "7.14.1"
-    },
-    "autoload": {
-      "psr-4": {
-        "ServiceTime\\Calendar\\": "src/"
-      }
-    },
-    "extra": {
-      "laravel": {
-        "providers": ["ServiceTime\\Calendar\\CalendarServiceProvider"]
-      }
+  "name": "ozycast/service-time-calendar",
+  "license": "MIT",
+  "description": "Calendar with timetable for site ServiceTime",
+  "authors": [
+    {
+      "name": "ozycast",
+      "email": "ozy@nxt.ru"
     }
+  ],
+  "require": {
+    "illuminate/support": "^7.0",
+    "illuminate/routing": "^7.14",
+    "illuminate/http": "^7.14",
+    "guzzlehttp/guzzle": "^6.3",
+    "ext-json": "*",
+    "illuminate/validation": "^7.14",
+    "laravel-zero/foundation": "^7.14"
+  },
+  "autoload": {
+    "psr-4": {
+      "ServiceTime\\Calendar\\": "src/"
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "ServiceTime\\Calendar\\CalendarServiceProvider"
+      ]
+    }
+  }
 }
