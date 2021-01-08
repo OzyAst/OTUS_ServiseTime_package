@@ -16,5 +16,15 @@
       "ext-json": "*",
       "illuminate/validation": "7.14",
       "laravel-zero/foundation": "7.14.1"
+    },
+    "autoload": {
+      "psr-4": {
+        "ServiceTime\\Calendar\\": "src/"
+      }
+    },
+    "extra": {
+      "laravel": {
+        "providers": ["ServiceTime\\Calendar\\CalendarServiceProvider"]
+      }
     }
 }
