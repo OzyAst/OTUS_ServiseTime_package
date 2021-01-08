@@ -1,0 +1,11 @@
+{
+    "name": "ozycast/service-time-calendar",
+    "license": "MIT",
+    "description": "Calendar with timetable for site ServiceTime",
+    "authors": [
+        {
+            "name": "ozycast",
+            "email": "ozy@nxt.ru"
+        }
+    ]
+}
