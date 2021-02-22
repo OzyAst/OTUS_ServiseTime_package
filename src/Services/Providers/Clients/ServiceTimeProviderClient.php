@@ -24,7 +24,7 @@ class ServiceTimeProviderClient implements IProviderClient
      */
     public function getRecordByProcedure(int $procedure_id, string $date_start, string $date_end): array
     {
-        $records = $this->httpService->get($this->getAbsUrl("timetable", $procedure_id), [
+        $records = $this->httpService->get($this->getAbsUrl("procedure", $procedure_id. '/record'), [
             'date_start' => $date_start,
             'date_end' => $date_end,
         ]);
