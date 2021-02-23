@@ -15,6 +15,8 @@ document.addEventListener('DOMContentLoaded', function () {
             center: 'title',
             right: 'timeGridWeek timeGridDay'
         },
+        slotMinTime: "08:30:00",
+        slotMaxTime: "20:00:00",
         buttonText: {
             today: 'Сегодня',
             week: 'Неделя',
