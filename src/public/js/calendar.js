@@ -112,6 +112,12 @@ function check_calendar() {
     return true
 }
 
+/**
+ * Форма подтверждения записи
+ * @param procedure
+ * @param date
+ * @return {*}
+ */
 function confirmCreateRecord(procedure, date) {
     var time = Date.parse(date).toString("HH:mm");
     var date = Date.parse(date).toString("d.MM.yyyy");

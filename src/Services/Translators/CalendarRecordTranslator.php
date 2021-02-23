@@ -2,6 +2,7 @@
 
 namespace ServiceTime\Calendar\Services\Translators;
 
+use Illuminate\Support\Facades\Auth;
 use ServiceTime\Calendar\Services\Translators\DTO\FullCalendarDTO;
 
 /**
@@ -18,7 +19,8 @@ class CalendarRecordTranslator extends BaseTranslator
         return FullCalendarDTO::fromArray([
             'title' => $item['procedure']['name'],
             'start' => $item['date_start'],
-            'end' => $item['date_end']
+            'end' => $item['date_end'],
+            'color' => (Auth::id() == $item['client_id']) ? "#2db56c" : "#3490dc",
         ]);
     }
 }
