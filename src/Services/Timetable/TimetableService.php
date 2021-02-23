@@ -2,16 +2,22 @@
 
 namespace ServiceTime\Calendar\Services\Timetable;
 
+use Carbon\Carbon;
 use ServiceTime\Calendar\Services\Providers\ProviderService;
-use ServiceTime\Calendar\Services\Timetable\DTO\FullCalendarDTO;
+use ServiceTime\Calendar\Services\Timetable\Handlers\CreateRecordHandler;
 
 class TimetableService
 {
     private ProviderService $providerService;
+    private CreateRecordHandler $createRecordHandler;
 
-    public function __construct(ProviderService $providerService)
+    public function __construct(
+        ProviderService $providerService,
+        CreateRecordHandler $createRecordHandler
+    )
     {
         $this->providerService = $providerService;
+        $this->createRecordHandler = $createRecordHandler;
     }
 
     /**
@@ -23,15 +29,19 @@ class TimetableService
      */
     public function getTimetableByProcedure(int $procedure_id, string $date_start, string $date_end)
     {
-        $records = $this->providerService->getRecordByProcedure($procedure_id, $date_start, $date_end);
-        foreach ($records as $record) {
-            $timetable[] = (new FullCalendarDTO(
-                $record['procedure']['name'],
-                $record['date_start'],
-                $record['date_end']
-            ))->toArray();
-        }
+        return $this->providerService->getRecordByProcedure($procedure_id, $date_start, $date_end);
+    }
 
-        return $timetable ?? [];
+    /**
+     * Добавить новую запись
+     * @param int $procedure_id
+     * @param string $date_start
+     * @param int $user_id
+     * @return array
+     */
+    public function createRecordByProcedure(int $procedure_id, string $date_start, int $user_id): array
+    {
+        $date_start = Carbon::parse($date_start);
+        return $this->createRecordHandler->handle($procedure_id, $date_start, $user_id);
     }
 }

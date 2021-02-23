@@ -17,7 +17,13 @@ class GuzzleHttpClient implements IHttpClient
 
     public function get(string $uri, array $params): array
     {
-        $request = $this->client->get($uri);
+        $request = $this->client->get($uri, $params);
+        return $request->json();
+    }
+
+    public function post(string $uri, array $params): array
+    {
+        $request = $this->client->post($uri, $params);
         return $request->json();
     }
 }

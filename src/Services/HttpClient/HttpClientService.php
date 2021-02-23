@@ -19,6 +19,7 @@ class HttpClientService
     }
 
     /**
+     * GET
      * @param string $url
      * @param array $params
      * @return array
@@ -26,5 +27,16 @@ class HttpClientService
     public function get(string $url, array $params = [])
     {
         return $this->client->get($url, $params);
+    }
+
+    /**
+     * POST
+     * @param string $url
+     * @param array $params
+     * @return array
+     */
+    public function post(string $url, array $params = [])
+    {
+        return $this->client->post($url, $params);
     }
 }

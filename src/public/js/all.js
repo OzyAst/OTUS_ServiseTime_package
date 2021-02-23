@@ -10,10 +10,11 @@
  */
 function ajax(type, url, data, callback, datatype = 'json', async = true) {
     var config = {
-        type: type,
+        method: type,
         async: async,
         dataType: datatype,
         url: url,
+        'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
     };
 
     if (type.toLowerCase() === "get") {
@@ -35,7 +36,7 @@ function ajax(type, url, data, callback, datatype = 'json', async = true) {
                 if (typeof callback.error == "function")
                     callback.error(response.data);
                 else
-                    console.error(response.data.text);
+                    Swal.fire({title: 'Error!', text: response.data.message, icon: 'error'})
             }
         } else {
             if (typeof callback == "function")
@@ -43,9 +44,25 @@ function ajax(type, url, data, callback, datatype = 'json', async = true) {
         }
 
     })
-    .catch(function (data) {
-        console.error(data);
-        if (typeof data.responseText !== undefined)
-            alert(data.responseText);
+    .catch(function (error) {
+        var title = "Error!";
+        var message = "";
+
+        if (error.response) {
+            // The request was made and the server responded with a status code
+            // that falls out of the range of 2xx
+            message = error.response.data.message
+            title = 'Error ('+ error.response.status +')! ';
+        } else if (error.request) {
+            // The request was made but no response was received
+            // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+            // http.ClientRequest in node.js
+            console.log(error.request);
+        } else {
+            // Something happened in setting up the request that triggered an Error
+            message = error.message;
+        }
+
+        Swal.fire({title: title, text: message, icon: 'error'})
     });
 }

@@ -1,13 +1,11 @@
 <?php
 
-namespace ServiceTime\Calendar\Requests\Timetable;
-
-use ServiceTime\Calendar\Requests\FormRequest;
+namespace ServiceTime\Calendar\Requests;
 
 /**
- * Даты переданные при запросе записей
+ * Данные для добавления записи
  */
-class DateParamsRequest extends FormRequest
+class StoreRecordRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -27,8 +25,7 @@ class DateParamsRequest extends FormRequest
     public function rules()
     {
         return [
-            "date_start" => 'required|date_format:"d.m.Y"',
-            "date_end" => 'required|date_format:"d.m.Y"',
+            "date_start" => 'required|date_format:"Y-m-d H:i"',
         ];
     }
 }

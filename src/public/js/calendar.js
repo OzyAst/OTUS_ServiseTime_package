@@ -39,6 +39,30 @@ document.addEventListener('DOMContentLoaded', function () {
 
             refresh_calendar(procedure_id, date_start, date_end);
         },
+
+        // Клик по времени в календаре
+        dateClick: function (arg) {
+            var date_start = Date.parse(arg.date).toString("yyyy-MM-d HH:mm");
+            var procedure_id = $("#calendar").attr("data-procedure");
+            var procedure_name = $("#calendar").attr("data-procedure_name");
+
+            confirmCreateRecord(procedure_name, date_start).then((result) => {
+                if (result.isConfirmed) {
+                    ajax("POST", "/calendar/create/" + procedure_id, {date_start: date_start}, {
+                        success: function (answer) {
+                            calendar.addEventSource(answer.events);
+                            Swal.fire({
+                                position: 'top-end',
+                                icon: 'success',
+                                title: 'Запись добавлена!',
+                                showConfirmButton: false,
+                                timer: 1500
+                            })
+                        }
+                    })
+                }
+            })
+        },
     });
 
     calendar.render();
@@ -84,4 +108,19 @@ function check_calendar() {
     }
 
     return true
+}
+
+function confirmCreateRecord(procedure, date) {
+    var time = Date.parse(date).toString("HH:mm");
+    var date = Date.parse(date).toString("d.MM.yyyy");
+
+    return Swal.fire({
+        title: 'Запись на процедуру ' + procedure + '?',
+        text: "Вы точно хотите записться на " + date + " число, в " + time + "",
+        icon: 'info',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Да, записаться'
+    })
 }

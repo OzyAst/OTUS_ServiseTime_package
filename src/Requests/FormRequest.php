@@ -18,4 +18,10 @@ class FormRequest extends BaseFormRequest
 
         return $data;
     }
+
+    public function getFormData()
+    {
+        $data = self::getFromData();
+        return $data;
+    }
 }

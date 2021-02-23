@@ -3,6 +3,7 @@
 namespace ServiceTime\Calendar\Services\Providers;
 
 use ServiceTime\Calendar\Services\Providers\Clients\IProviderClient;
+use ServiceTime\Calendar\Services\Providers\DTO\CreateRecordDTO;
 
 /**
  * Провайдер данных расписания
@@ -28,5 +29,15 @@ class ProviderService
     public function getRecordByProcedure(int $procedure_id, string $date_start, string $date_end): array
     {
         return $this->client->getRecordByProcedure($procedure_id, $date_start, $date_end);
+    }
+
+    /**
+     * Создать запись
+     * @param CreateRecordDTO $dto
+     * @return array
+     */
+    public function createRecord(CreateRecordDTO $dto): array
+    {
+        return $this->client->createRecord($dto);
     }
 }

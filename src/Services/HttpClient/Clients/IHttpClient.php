@@ -11,9 +11,17 @@ interface IHttpClient
 {
     /**
      * get запрос
-     * @param string $url
+     * @param string $uri
      * @param array $params
      * @return array|null
      */
-    public function get(string $url, array $params): array;
+    public function get(string $uri, array $params): array;
+
+    /**
+     * post запрос
+     * @param string $uri
+     * @param array $params
+     * @return array
+     */
+    public function post(string $uri, array $params): array;
 }
