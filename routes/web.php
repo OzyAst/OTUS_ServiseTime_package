@@ -7,5 +7,10 @@ Route::group([
     'middleware' => ['web']
 ], function () {
     Route::get('/calendar/timetable/{procedure_id}', [CalendarController::class, 'timetable']);
-    Route::post('/calendar/create/{procedure_id}', [CalendarController::class, 'store']);
+
+    Route::group([
+        'middleware' => ['auth']
+    ], function () {
+        Route::post('/calendar/create/{procedure_id}', [CalendarController::class, 'store']);
+    });
 });

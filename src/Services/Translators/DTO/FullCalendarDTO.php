@@ -2,7 +2,6 @@
 
 namespace ServiceTime\Calendar\Services\Translators\DTO;
 
-use Illuminate\Support\Facades\Auth;
 use ServiceTime\Calendar\Services\DTO\DTO;
 
 /**
