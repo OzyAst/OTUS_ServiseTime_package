@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Клик по времени в календаре
         dateClick: function (arg) {
-            var date_start = Date.parse(arg.date).toString("yyyy-MM-d HH:mm");
+            var date_start = Date.parse(arg.date).toString("yyyy-MM-dd HH:mm");
             var procedure_id = $("#calendar").attr("data-procedure");
             var procedure_name = $("#calendar").attr("data-procedure_name");
 
@@ -65,6 +65,23 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
             })
         },
+
+        /**
+         * Добавим класс для стилизации и spirit блок
+         * @param params
+         * @return {string}
+         */
+        slotLaneClassNames: function (params) {
+            return 'slot-time-block';
+        },
+        slotLaneDidMount: function (params) {
+            $(params.el).html("<div class='slot-duration'></div>");
+        },
+
+        // Установим обработчик для перемещения spirit блока
+        viewDidMount() {
+            addSpiritEventHandler();
+        }
     });
 
     calendar.render();
@@ -83,6 +100,7 @@ function refresh_calendar(procedure_id, date_start, date_end) {
             success: function (events) {
                 clear_calendar();
                 calendar.addEventSource(events);
+                addSpiritSlotTime();
             }
         })
     }
@@ -120,7 +138,7 @@ function check_calendar() {
  */
 function confirmCreateRecord(procedure, date) {
     var time = Date.parse(date).toString("HH:mm");
-    var date = Date.parse(date).toString("d.MM.yyyy");
+    var date = Date.parse(date).toString("dd.MM.yyyy");
 
     return Swal.fire({
         title: 'Запись на процедуру ' + procedure + '?',
@@ -131,4 +149,39 @@ function confirmCreateRecord(procedure, date) {
         cancelButtonColor: '#d33',
         confirmButtonText: 'Да, записаться'
     })
+}
+
+/**
+ * Добавить копию записи, для отображении при наведении
+ */
+function addSpiritSlotTime() {
+    // растянем блок по ширине колонки
+    var widthColumn = $(".fc-day-today").width();
+
+    // Увеличим высоту блока согласно продолжительности записи
+    var slotHeight = $('.slot-duration').parents('tr').outerHeight();
+    var duration = $("#calendar").attr("data-procedure_duration");
+    var height = slotHeight * Math.round(duration / 5);
+
+    $(".slot-duration").height(height).width(widthColumn);
+}
+
+/**
+ * Перемещение spirit блока для записи
+ */
+function addSpiritEventHandler() {
+    $("body").on('mousemove', '.slot-time-block', function (e) {
+        // Узнаем в какой колонке календаря мы находимся ("+2" - отсчет со 2-ой колонки)
+        var colNumber = Math.round((e.clientX - 200) / $('.slot-duration').width()) + 2;
+        // Получим позицию колонки
+        var positionColumn = $(".fc-day:nth-child("+ colNumber +")").position();
+        if (!positionColumn) {
+            return;
+        }
+        // Перемещаем наш блок на растояние колонки
+        var colOffset = positionColumn.left;
+
+        $('.slot-duration').not($('.slot-duration', $(this))).hide();
+        $('.slot-duration', $(this)).css("left", colOffset).show();
+    });
 }

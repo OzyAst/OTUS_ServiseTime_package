@@ -1,0 +1,16 @@
+/** Стилизация календаря **/
+.slot-time-block {
+    overflow-y: hidden;
+}
+.slot-time-block:hover {
+    cursor: pointer;
+}
+.slot-duration {
+    position: absolute;
+    z-index: -1;
+    background-color: rgba(45, 181, 108, 0.3);
+    width: 150px;
+    border: 1px dashed #2DB56C;
+    display: none;
+    height: 100%;
+}

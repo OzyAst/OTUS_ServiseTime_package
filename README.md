@@ -13,7 +13,7 @@ composer require ozycast/service-time-calendar
 ```
 Публикуем ресурсы пакета
 ```cmd
-php artisan vendor:publish --provider="ServiceTime\Calendar\CalendarServiceProvider"
+php artisan vendor:publish --force --provider="ServiceTime\Calendar\CalendarServiceProvider"
 ```
 Выводим календарь на страницу
 ```blade
