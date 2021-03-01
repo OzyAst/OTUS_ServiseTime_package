@@ -172,7 +172,7 @@ function addSpiritSlotTime() {
 function addSpiritEventHandler() {
     $("body").on('mousemove', '.slot-time-block', function (e) {
         // Узнаем в какой колонке календаря мы находимся ("+2" - отсчет со 2-ой колонки)
-        var colNumber = Math.round((e.clientX - 200) / $('.slot-duration').width()) + 2;
+        var colNumber = Math.round((e.offsetX - 60) / $('.slot-duration').width()) + 2;
         // Получим позицию колонки
         var positionColumn = $(".fc-day:nth-child("+ colNumber +")").position();
         if (!positionColumn) {
